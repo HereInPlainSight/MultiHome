@@ -223,7 +223,18 @@ public class MultiHome extends JavaPlugin {
 				Settings.sendMessageTooManyParameters(player);
 			}
 
-		}
+		} /**
+		The following command is in beta and made by HereInPlainSight. So like, it's really beta.
+		**/
+		else if (cmd.getName().compareToIgnoreCase("trimhomes") == 0 || cmd.getName().compareToIgnoreCase("mtrimhomes") == 0) {
+				if (args.length == 0){
+					this.commandExecutor.trimHomes(player);
+				} else if (args.length == 1){
+					this.commandExecutor.trimHomes(player, args[0]);					
+				} else {
+					Settings.sendMessageTooManyParameters(player);
+				}
+			} 
 	}
 
     private void onCommandFromConsole(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -248,7 +259,6 @@ public class MultiHome extends JavaPlugin {
 			} else {
 				Settings.sendMessageTooManyParameters(sender);
 			}
-
 		}
     }
 }

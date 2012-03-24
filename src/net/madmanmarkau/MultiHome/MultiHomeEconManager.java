@@ -3,7 +3,6 @@ package net.madmanmarkau.MultiHome;
 import org.bukkit.plugin.Plugin;
 import com.nijikokun.register.payment.*;
 
-
 public class MultiHomeEconManager {
 
 	public static EconomyHandler handler;

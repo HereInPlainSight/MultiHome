@@ -6,12 +6,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class Settings {
-	private static YamlConfiguration Config;
+	private static FileConfiguration Config;
 	private static MultiHome plugin;
 	
 	public static void initialize(MultiHome plugin) {
@@ -41,18 +42,26 @@ public class Settings {
 		}
 
     	// Reading from YML file
-		Config = new YamlConfiguration();
+		Config = plugin.getConfig();
 		try {
 			Config.load(configFile);
+			Config.options().copyDefaults(true);
+			plugin.saveConfig();
 		} catch (Exception e) {
 			Messaging.logSevere("Could not load the configuration file: " + e.getMessage(), plugin);
 		}
     }
 
-	public static int getSettingInt(Player player, String setting, int defaultValue) {
+	public static int getSettingInt(OfflinePlayer offlinePlayer, String setting, int defaultValue) {
 		// Get the player group
-		String playerGroup = HomePermissions.getGroup(player.getWorld().getName(), player.getName());
-		
+		Player player = null;
+		String playerGroup;
+		if (offlinePlayer.isOnline()){
+			player = offlinePlayer.getPlayer();
+			playerGroup = HomePermissions.getGroup(player.getWorld().getName(), player.getName());
+		} else {
+			playerGroup = HomePermissions.getGroup(plugin.getServer().getWorlds().get(0).getName(), offlinePlayer.getName());
+		}
 		if (playerGroup != null) {
 			// Player group found
 			if (Config.isSet("MultiHome.groups." + playerGroup + "." + setting)) {
@@ -117,12 +126,18 @@ public class Settings {
 		return getSettingInt(player, "cooldown", 0);
 	}
 	
-	public static int getSettingMaxHomes(Player player) {
+	public static int getSettingMaxHomes(OfflinePlayer player) {
 		return getSettingInt(player, "maxhomes", -1);
 	}
 	
 	public static boolean getSettingDisrupt(Player player) {
 		return getSettingInt(player, "disruptWarmup", 1) == 1 ? true : false;
+	}
+	
+	public static void sendMessageInvalidParameter(CommandSender sender) {
+		String message = Config.getString("MultiHome.messages.invalidParameter", null);
+
+		if (message != null) Messaging.sendSuccess(sender, message);
 	}
 	
 	public static void sendMessageTooManyParameters(CommandSender sender) {

@@ -1,5 +1,5 @@
 name: MultiHome
-version: 0.11.3
+version: 0.11.4
 main: net.madmanmarkau.MultiHome.MultiHome
 authors:
  - MadManMarkAu
@@ -62,6 +62,9 @@ commands:
   mlistmyinvites:
     description: List which of your homes others may visit.
     usage: /<command>
+  trimhomes:
+    description: Deletes any homes above the given number globally. Cannot be undone.
+    usage: /<command> <#>
 
 permissions:
     multihome.*:
@@ -75,6 +78,7 @@ permissions:
             multihome.listinvites.*: true
             multihome.ignore.*: true
             multihome.homeondeath: false
+            multihome.trimhomes: false
     multihome.defaulthome.*:
         description: Gives access to all things involving the default /home.
         default: false
@@ -213,5 +217,7 @@ permissions:
     multihome.homeondeath:
         description: The user will be taken to their default home when respawning.
         default: false
+    multihome.trimhomes:
+        description: Allows the user to trim the number of homes globally. Cannot be undone.
+        default: false
 
-    

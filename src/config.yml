@@ -2,6 +2,7 @@
 #
 # settings:
 #   messages: Plugin messages are stored here. Customize messages using these entries. Missing entries will not be sent.
+#     invalidParameter: Message for when a user specifies an invalid parameter. Variables: none
 #     tooManyParameters: Message for when user specifies too many parameters. Variables: none
 #     defaultHomeSetMessage: Message for when default home is set. Variables: none
 #     cannotDeleteDefaultHomeMessage: Message for when player tries to delete deafult home. Variables: none
@@ -46,6 +47,7 @@ MultiHome:
     enableHomeOnDeath: false
     enableEconomy: false
     messages:
+        invalidParameter: 'Invalid parameter.'
         tooManyParameters: 'Too many parameters.'
         defaultHomeSetMessage: 'Deafult home set.'
         cannotDeleteDefaultHomeMessage: 'You cannot delete your default home location.'

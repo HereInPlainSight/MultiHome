@@ -478,4 +478,30 @@ public class CommandExecutor {
 			Messaging.logInfo("Player " + player.getName() + " tried to list invitations they've given. Permission not granted.", plugin);
 		}
 	}
+	
+	public void trimHomes(Player player) {
+		if (HomePermissions.has(player, "multihome.trimhomes")){
+			plugin.homes.limitHomes(-1);
+		} else {
+			Messaging.logInfo("Player " + player.getName() + " tried to trim homes globally. Permission not granted.", plugin);
+		}
+	}
+	
+	public void trimHomes(Player player, String number) {
+		if (HomePermissions.has(player, "multihome.trimhomes")){
+			int num = 0;
+			try {
+				num = Integer.parseInt(number);
+			} catch(Exception e){
+				Settings.sendMessageInvalidParameter(player);
+				return;
+			}if (num < 0){
+				Settings.sendMessageInvalidParameter(player);
+				return;
+			}
+			plugin.homes.limitHomes(num);
+		} else {
+			Messaging.logInfo("Player " + player.getName() + " tried to trim homes globally. Permission not granted.", plugin);
+		}
+	}
 }

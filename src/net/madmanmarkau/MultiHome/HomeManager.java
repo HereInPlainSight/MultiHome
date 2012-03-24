@@ -198,6 +198,19 @@ public class HomeManager {
 	}
 	
 	/**
+	 * Pare down the number of homes all players may have.
+	 * @param num Number of homes to bring players down to. -1 trims to config file values.
+	 */
+	public void limitHomes(int maxHomes) {
+		for (String playerName : this.homeLocations.keySet()) {
+			for (int currentHome=(getUserHomeCount(playerName)-1); (maxHomes == -1 ? (Settings.getSettingMaxHomes(plugin.getServer().getOfflinePlayer(playerName)) <= currentHome) : (maxHomes <= currentHome)); currentHome--){
+				removeHome(playerName, this.homeLocations.get(playerName).get(currentHome).getHomeName());
+			}
+		}
+		this.saveHomesLocal();
+	}
+	
+	/**
 	 * Check the home database for a player.
 	 * @param player Player to check database for.
 	 * @return boolean True if player exists in database, otherwise false.
