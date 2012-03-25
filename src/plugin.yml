@@ -5,6 +5,7 @@ authors:
  - MadManMarkAu
  - Sleaker
  - HereInPlainSight
+softdepend: [Vault]
 license: WTFPL
 description: >
              Multiple home locations.

@@ -41,4 +41,4 @@ Permissions nodes:
 	multihome.ignore.cooldown
 	multihome.ignore.warmup
 
-    multihome.trimhomes
+	multihome.trimhomes
