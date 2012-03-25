@@ -1,33 +1,44 @@
-multihome.defaulthome.go
-multihome.defaulthome.set
-multihome.defaulthome.delete
-multihome.defaulthome.invite
-multihome.defaulthome.invitetimed
-multihome.defaulthome.uninvite
+MultiHome is a plugin to allow your users to set multiple home locations, giving each location a unique name. Supports economy, warmup and cooldown, home-on-death.
 
-multihome.namedhome.go
-multihome.namedhome.set
-multihome.namedhome.delete
-multihome.namedhome.list
-multihome.namedhome.invite
-multihome.namedhome.invitetimed
-multihome.namedhome.uninvite
+This project was developed in response to other multiple-home plugins only using home numbers. By using home names, it makes it so much easier to keep track of what home goes to what location.
 
-multihome.othershome.go
-multihome.othershome.set
-multihome.othershome.delete
-multihome.othershome.list
+Authors:
+	MadManMarkAu
+	HereInPlainSight
+	filbert66
+	Sleaker
 
-multihome.free.defaulthome.go
-multihome.free.defaulthome.set
-multihome.free.namedhome.go
-multihome.free.namedhome.set
-multihome.free.othershome.go
+Permissions nodes:
+	multihome.defaulthome.go
+	multihome.defaulthome.set
+	multihome.defaulthome.delete
+	multihome.defaulthome.invite
+	multihome.defaulthome.invitetimed
+	multihome.defaulthome.uninvite
+	
+	multihome.namedhome.go
+	multihome.namedhome.set
+	multihome.namedhome.delete
+	multihome.namedhome.list
+	multihome.namedhome.invite
+	multihome.namedhome.invitetimed
+	multihome.namedhome.uninvite
+	
+	multihome.othershome.go
+	multihome.othershome.set
+	multihome.othershome.delete
+	multihome.othershome.list
+	
+	multihome.free.defaulthome.go
+	multihome.free.defaulthome.set
+	multihome.free.namedhome.go
+	multihome.free.namedhome.set
+	multihome.free.othershome.go
+	
+	multihome.listinvites.tome
+	multihome.listinvites.toothers
+	
+	multihome.ignore.cooldown
+	multihome.ignore.warmup
 
-multihome.listinvites.tome
-multihome.listinvites.toothers
-
-multihome.ignore.cooldown
-multihome.ignore.warmup
-
-multihome.trimhomes
+    multihome.trimhomes

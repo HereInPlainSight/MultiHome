@@ -4,6 +4,7 @@ main: net.madmanmarkau.MultiHome.MultiHome
 authors:
  - MadManMarkAu
  - Sleaker
+ - HereInPlainSight
 license: WTFPL
 description: >
              Multiple home locations.
@@ -63,8 +64,8 @@ commands:
     description: List which of your homes others may visit.
     usage: /<command>
   trimhomes:
-    description: Deletes any homes above the given number globally. Cannot be undone.
-    usage: /<command> <#>
+    description: Trims homes globally or according to configuration file.
+    usage: /<command> [global max homes]
 
 permissions:
     multihome.*:
@@ -218,6 +219,5 @@ permissions:
         description: The user will be taken to their default home when respawning.
         default: false
     multihome.trimhomes:
-        description: Allows the user to trim the number of homes globally. Cannot be undone.
+        description: Allows the user to trim homes globally and according to the config file.
         default: false
-
