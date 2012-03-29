@@ -203,8 +203,11 @@ public class HomeManager {
 	 */
 	public void limitHomes(int maxHomes) {
 		for (String playerName : this.homeLocations.keySet()) {
-			for (int currentHome=(getUserHomeCount(playerName)-1); (maxHomes == -1 ? (Settings.getSettingMaxHomes(plugin.getServer().getOfflinePlayer(playerName)) <= currentHome) : (maxHomes <= currentHome)); currentHome--){
-				removeHome(playerName, this.homeLocations.get(playerName).get(currentHome).getHomeName());
+			int settingsMaxHomes = Settings.getSettingMaxHomes(plugin.getServer().getOfflinePlayer(playerName));
+			if (settingsMaxHomes != -1){
+				for (int currentHome=(getUserHomeCount(playerName)-1); (maxHomes == -1 ? (settingsMaxHomes <= currentHome ) : (maxHomes <= currentHome)); currentHome--){
+					removeHome(playerName, this.homeLocations.get(playerName).get(currentHome).getHomeName());
+				}
 			}
 		}
 		this.saveHomesLocal();
