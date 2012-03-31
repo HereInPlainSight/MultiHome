@@ -14,6 +14,12 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 import com.platymuus.bukkit.permissions.Group;
 import com.platymuus.bukkit.permissions.PermissionsPlugin;
 
+import de.bananaco.bpermissions.api.ApiLayer;
+import de.bananaco.bpermissions.api.util.CalculableType;
+
+import org.anjocaido.groupmanager.GroupManager;
+import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
+
 /**
 *
 * @author Sleaker
@@ -25,7 +31,7 @@ public class HomePermissions {
 
 
 	private enum PermissionsHandler {
-		PERMISSIONSEX, PERMISSIONS, PERMISSIONSBUKKIT, SUPERPERMS, NONE
+		PERMISSIONSEX, PERMISSIONS, PERMISSIONSBUKKIT, GROUPMANAGER, BPERMISSIONS, SUPERPERMS, NONE
 	}
 
 	public static boolean initialize(JavaPlugin plugin) {
@@ -33,6 +39,8 @@ public class HomePermissions {
 		Plugin permex = Bukkit.getServer().getPluginManager().getPlugin("PermissionsEx");
 		Plugin bukkitperms = Bukkit.getServer().getPluginManager().getPlugin("PermissionsBukkit");
 		Plugin bukkitperms1_1 = Bukkit.getServer().getPluginManager().getPlugin("PermissionsBukkit-1.1");
+		Plugin groupmanager = Bukkit.getServer().getPluginManager().getPlugin("GroupManager");
+		Plugin bPermissions = Bukkit.getServer().getPluginManager().getPlugin("bPermissions");
 
 		if (permex != null) {
 			permissionPlugin = permex;
@@ -54,6 +62,16 @@ public class HomePermissions {
 			handler = PermissionsHandler.PERMISSIONS;
 			Messaging.logInfo("Using Permissions for permissions system.", plugin);
 			return true;
+		} else if  (groupmanager != null) {
+			permissionPlugin = groupmanager;
+			handler = PermissionsHandler.GROUPMANAGER;
+			Messaging.logInfo("Using GroupManager for permissions system.", plugin);
+			return true;
+		} else if (bPermissions != null) {
+			permissionPlugin = bPermissions;
+			handler = PermissionsHandler.BPERMISSIONS;
+			Messaging.logInfo("Using bPermissions for permissions system.", plugin);
+			return true;
 		} else {
 			handler = PermissionsHandler.SUPERPERMS;
 			Messaging.logWarning("A permission plugin was not detected! Defaulting to CraftBukkit permissions system.", plugin);
@@ -72,9 +90,9 @@ public class HomePermissions {
 			case PERMISSIONS:
 				blnHasPermission = ((Permissions) permissionPlugin).getHandler().has(player, permission);
 				break;
+			case GROUPMANAGER:
+			case BPERMISSIONS:
 			case PERMISSIONSBUKKIT:
-				blnHasPermission = player.hasPermission(permission);
-				break;
 			case SUPERPERMS:
 				blnHasPermission = player.hasPermission(permission);
 				break;
@@ -116,7 +134,23 @@ public class HomePermissions {
 						return playerGroups.get(0).getName();
 					}
 					break;
-	
+
+				case GROUPMANAGER:
+					AnjoPermissionsHandler handler = ((GroupManager) permissionPlugin).getWorldsHolder().getWorldPermissions(world);
+
+					if (handler != null ){
+						return handler.getGroup(player);
+					} 
+					break;
+					
+				case BPERMISSIONS:
+					String[] bplayerGroups = ApiLayer.getGroups(world, CalculableType.USER, player);
+					
+					if (bplayerGroups != null && bplayerGroups.length > 0 ){
+						return bplayerGroups[0];
+					}
+					break;
+
 				case SUPERPERMS:
 					break; // Groups not supported.
 			}
