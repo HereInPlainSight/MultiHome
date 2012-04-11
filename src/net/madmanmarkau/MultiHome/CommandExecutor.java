@@ -200,6 +200,8 @@ public class CommandExecutor {
 					if (!MultiHomeEconManager.hasEnough(player.getName(), Settings.getSetHomeCost(player))) {
 						Settings.sendMessageNotEnoughMoney(player, Settings.getSetHomeCost(player));
 						return;
+					} else if (plugin.homes.getHome(player, "") != null && player.hasPermission("multihome.defaulthome.payonce")) {
+						amount = 0;
 					} else {
 						amount = Settings.getSetHomeCost(player);
 					}

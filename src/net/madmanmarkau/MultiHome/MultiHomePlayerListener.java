@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -33,4 +34,13 @@ public class MultiHomePlayerListener implements Listener {
 		
 		plugin.warmups.removeWarmup(player);
 	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerBedEnter(PlayerBedEnterEvent sleep){
+		Player player = sleep.getPlayer();
+		if (player.hasPermission("multihome.defaulthome.lastbed")) {
+			plugin.homes.addHome(player, "", player.getLocation());
+		}
+	}
+	
 }

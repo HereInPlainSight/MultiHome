@@ -15,6 +15,8 @@ Permissions nodes:
 	multihome.defaulthome.invite
 	multihome.defaulthome.invitetimed
 	multihome.defaulthome.uninvite
+	multihome.defaulthome.payonce
+    multihome.defaulthome.lastbed
 	
 	multihome.namedhome.go
 	multihome.namedhome.set

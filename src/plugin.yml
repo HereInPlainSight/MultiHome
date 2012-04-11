@@ -1,5 +1,5 @@
 name: MultiHome
-version: 0.11.5
+version: 0.11.5.2
 main: net.madmanmarkau.MultiHome.MultiHome
 authors:
  - MadManMarkAu
@@ -71,7 +71,7 @@ commands:
 permissions:
     multihome.*:
         description: Gives access to all things multihome, perhaps too much.
-        default: false
+        default: op
         children:
             multihome.defaulthome.*: true
             multihome.namedhome.*: true
@@ -91,6 +91,8 @@ permissions:
             multihome.defaulthome.invite: true
             multihome.defaulthome.invitetimed: true
             multihome.defaulthome.uninvite: true
+            multihome.defaulthome.payonce: false
+            multihome.defaulthome.lastbed: false
     multihome.defaulthome.go:
         description: Allows the user to go to their default home.
         default: false
@@ -108,6 +110,12 @@ permissions:
         default: false
     multihome.defaulthome.uninvite:
         description: Allows the user to recind an invitation.
+        default: false
+    multihome.defaulthome.payonce:
+        description: Only the first time the default home is set will be charged. User will be charged again if they delete their default home.
+        default: false
+    multihome.defaulthome.lastbed:
+        description: The last bed used is set as the default home.
         default: false
     multihome.namedhome.*:
         description: Allows the user full access to the use of named homes.
