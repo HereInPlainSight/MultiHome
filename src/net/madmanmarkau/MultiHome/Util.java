@@ -90,13 +90,25 @@ public class Util {
 	}
 
 	/**
-	 * Faith-based teleporting.  Second chunk send removed based on feedback that issue has
-	 * been fixed in 1.2.
+	 * Does a bug-fixing teleport (wither indirect or direct) to a location. Fixes a bug teleporting between worlds.
+	 * @param player Player to teleport.
+	 * @param location Location to teleport player to.
 	 */
 	public static void teleportPlayer(Player player, Location location, JavaPlugin plugin) {
 		player.teleport(location);
+
+		if (plugin.getConfig().getBoolean("MultiHome.enableChunkResend", false)){
+			int backupTask;
+
+			// Schedule a task to re-send the chunk
+			backupTask = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ChunkResendTask(location), 1 * 20); // 1 second delay
+
+			if (backupTask == -1) {
+				Messaging.logSevere("Failed to create chunk resend schedule!", plugin);
+			}
+		}
 	}
-	
+
 	public static Date dateInFuture(int seconds) {
 		Date now = new Date();
 		

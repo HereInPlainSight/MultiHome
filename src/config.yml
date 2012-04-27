@@ -46,6 +46,7 @@
 MultiHome:
     enableHomeOnDeath: false
     enableEconomy: false
+    enableChunkResend: false
     messages:
         invalidParameter: 'Invalid parameter.'
         tooManyParameters: 'Too many parameters.'
