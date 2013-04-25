@@ -152,6 +152,7 @@ public class HomePermissions {
 					break;
 
 				case SUPERPERMS:
+				case NONE:
 					break; // Groups not supported.
 			}
 		}

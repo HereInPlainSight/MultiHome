@@ -94,16 +94,17 @@ public class Util {
 	 * @param player Player to teleport.
 	 * @param location Location to teleport player to.
 	 */
+	@SuppressWarnings("deprecation") // Hi!  Remember to check this out later!
 	public static void teleportPlayer(Player player, Location location, JavaPlugin plugin) {
-		player.teleport(location);
+		if (location.getChunk().load()){
+			player.teleport(location);
+		} else {
+			player.sendMessage("Chunk could not be loaded.");
+		}
 
 		if (plugin.getConfig().getBoolean("MultiHome.enableChunkResend", false)){
-			int backupTask;
-
 			// Schedule a task to re-send the chunk
-			backupTask = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ChunkResendTask(location), 1 * 20); // 1 second delay
-
-			if (backupTask == -1) {
+			if ((plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ChunkResendTask(location), 1 * 20)) == 1){ // 1 second delay
 				Messaging.logSevere("Failed to create chunk resend schedule!", plugin);
 			}
 		}
